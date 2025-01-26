@@ -1,6 +1,5 @@
 /* @provengo summon selenium */
-
-bthread('notAllowChoiceBeUpdated', function () {
+bthread('setup', function () {
     let session = new SeleniumSession('reply');
     session.start(URL, 'chrome');
 
@@ -16,12 +15,27 @@ bthread('notAllowChoiceBeUpdated', function () {
     bp.sync({ request: bp.Event("enrollStudent") });
     enrollStudent(session);
 
-    bp.sync({ request: bp.Event("createActivity") });
-    createActivity(session);
+    bp.sync({ request: bp.Event("createActivityWithChangingOption") });
+    createActivityWithChangingOption(session);
 
     bp.sync({ request: bp.Event("logoutAdmin") });
     logoutAdmin(session);
+})
+    
+bthread('notAllowChoiceBeUpdated', function () {
+    let session = new SeleniumSession('reply');
+    session.start(URL, 'chrome');
 
+    bp.sync({ waitFor: bp.Event("logoutAdmin") });
+
+    bp.sync({ request: bp.Event("loginAdmin") });
+    loginTeacher(session);
+
+    bp.sync({ request: bp.Event("changeActivityToDsiabledChangingOption") });
+    changeActivityToDsiabledChangingOption(session);
+
+    bp.sync({ request: bp.Event("logoutAdmin") });
+    logoutAdmin(session);
 
     bp.sync({ request: bp.Event("loginStudent") });
     loginStudent(session);
@@ -33,7 +47,7 @@ bthread('notAllowChoiceBeUpdated', function () {
     studentEnterDisabledActivity(session);
 
     bp.sync({ request: bp.Event("choose option 1") });
-    chooseOption(session);
+    chooseOption1(session);
 
     bp.sync({ request: bp.Event("return to course") });
     returnToCourse(session);
@@ -51,6 +65,34 @@ bthread('notAllowChoiceBeUpdated', function () {
 
 });
 
-// bthread('ableToChange', function () {
-//TODO: hi
-// });
+bthread("AllowChoiceBeUpdated", function () {
+  let session = new SeleniumSession("reply");
+  session.start(URL, "chrome");
+
+  bp.sync({ waitFor: bp.Event("logoutAdmin") });
+
+  bp.sync({ request: bp.Event("loginStudent") });
+  loginStudent(session);
+
+  bp.sync({ request: bp.Event("navigateToCourse") });
+  navigateToCourseFromHomePage(session);
+
+  bp.sync({ request: bp.Event("enterAbledActivity") });
+  studentEnterDisabledActivity(session);
+
+  bp.sync({ request: bp.Event("choose option 1") });
+  chooseOption1(session);
+
+  bp.sync({ request: bp.Event("return to course") });
+  returnToCourse(session);
+
+  bp.sync({ request: bp.Event("enterAbledActivity") });
+  studentEnterDisabledActivity(session);
+
+  bp.sync({ request: bp.Event("checkCantChangeOption") });
+  checkCantChange(session);
+
+  bp.sync({ request: bp.Event("logoutStudent") });
+
+  logoutFromChoice(session);
+});
