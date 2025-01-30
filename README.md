@@ -71,7 +71,8 @@ Moodle is a free and open-source learning management system written in PHP. It i
 | test_course    | goodActivity    | coolOption1       | coolerOption2       |
 
 ```
-#When creating goodActivity change to "Yes" in "Allow choice to be updated".
+Important:
+When creating goodActivity change to "Yes" in "Allow choice to be updated".
 After creating the course test_course, as the student, "shavit", login, enter goodActivity, select coolOption1, press save option then logout.
 
 ## What We Tested
