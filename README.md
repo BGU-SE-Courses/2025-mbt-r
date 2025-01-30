@@ -108,7 +108,16 @@ After executing the tests, we verified that:
 - The system behaved as expected, with no unexpected errors or inconsistencies.
 
 ## Detected Bugs
-No critical bugs were detected during testing. All functionality performed as expected.
+There was one output that might seem as a bug:  
+   1. General description: The student is on the page of changing the choice option, 
+   than the teacher revoke the option to change options, than the student saves his changed option, than the option is saved and a red message appears for the student
+   saying "your choice has been saved (new line) More information about this error"  
+   2. Steps to reproduce: You can see the steps in Provengo\submission-files\ProvengoVideo.mp4 (The general description also provides general steps for predocuing the bug)  
+   3. Expected result: The expacted result can be either the change is saved anyway or the change is not saved (In our opinion the change should not be saved) anyway we think that that there should not be a red message
+   saying "your choice has been saved (new line) More information about this error"  
+   4. Actual result: The choice is saved and a red message saying "your choice has been saved (new line) More information about this error"  
+   
+Other than that no critical bugs were detected during testing. All functionality performed as expected.
 
 ---
 This report provides a structured approach to documenting the test cases and methodology, ensuring clarity and completeness in the testing process.
